@@ -7,7 +7,7 @@ var userIndex = 0;
 var connectedUsers = new Array();
 
 var isPresenter = false;
-var askedQuestion = false;
+var askedPermission = false;
 var hasPermission = false;
 
 Game.fps = 10;
@@ -38,6 +38,9 @@ Game.update = function () {
 
         NAF.connection.subscribeToDataChannel("pingConnectedUsers", ReplyToPing);
         NAF.connection.subscribeToDataChannel("pingReply", IncreaseIndex);
+
+        NAF.connection.subscribeToDataChannel("grantPermission", CheckIfCanSpeak);
+        NAF.connection.subscribeToDataChannel("revokePermission", CheckIfCanSpeak);
 
         if (connectionValid && !startRan) {
             Start();
@@ -109,16 +112,43 @@ function UpdateMic() {
     }
 }
 
-
+//call when someone clicked on another avatar to ask for permissions or grant them
 function ClickedOnOther() {
-    console.log("clicked on other");
+    if (isPresenter) {
+        console.log("clicked on other as presenter");
+        NAF.connection.broadcastDataGuaranteed("grantPermission", "");
+    } else {
+        console.log("clicked on other as student");
+        NAF.connection.broadcastDataGuaranteed("askPermission", "");
+        askedPermission = true;
+    }
 }
 
-function ClickedOnByOther() {
-    console.log("clicked on other");
+//call when someone clicked the revoke permissions button
+function RevokeSpeakingPermission() {
+    if (isPresenter) {
+        NAF.connection.broadcastDataGuaranteed("revokePermission", "");
+    } 
 }
 
+function CheckIfCanSpeak() {
+    if (askedPermission) {
+        if (!hasPermission) {
+            console.log("has talking permission");
+            hasPermission = true;
+        } else {
+            console.log("has no permission");
+            hasPermission = false;
+            askedPermission = true;
+        }
+    }
+}
 
+function RevokeRightToSpeak() {
+    console.log("has no permission");
+    hasPermission = false;
+    askedPermission = true;
+}
 
 /*****
 Key Bindings
@@ -137,6 +167,6 @@ window.onkeyup = function (e) {
     } else if (key == 75) {
         ClickedOnOther();
     } else if (key == 79) {
-        ClickedOnByOther();
+        RevokeSpeakingPermission();
     }
 }
