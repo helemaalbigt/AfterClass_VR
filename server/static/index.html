@@ -47,20 +47,25 @@
                       event-set__2="_event: mouseup; scale: .2 .1 .1"
                       event-set__3="_event: mouseenter; scale: .25 .15 .15; color: white"
                       event-set__4="_event: mouseleave; scale: .2 .1 .1; color: green" 
-                      onclick = "StandUp();">
+                      onclick = "StandUp();ClickedOnOther();">
                   </a-sphere>
                   <a-sphere id="iAmQuestion" class="link"
-                      color="yellow"
+                      color="red"
                       visible = "true"
                       position="0 1 0"
-                      scale="0.2 0.1 0.1">       
-                  </a-sphere>
-                  <a-sphere id="comradeQuestion" class="link"
+                      scale="0.2 0.1 0.1"
+                      event-set__1="_event: mousedown; scale: .25 .15 .15; color: white"
+                      event-set__2="_event: mouseup; scale: .2 .1 .1"
+                      event-set__3="_event: mouseenter; scale: .25 .15 .15; color: white"
+                      event-set__4="_event: mouseleave; scale: .2 .1 .1; color: green" 
+                      onclick = "RevokeSpeakingPermission();">      
+                  </a-sphere>s
+                  <!--<a-sphere id="comradeQuestion" class="link"
                       color="red"
                       visible = "true"
                       position="1 1 0"
                       scale="0.2 0.1 0.1">       
-                  </a-sphere>
+                  </a-sphere>-->
 
               <a-sphere class="head"
                 material = ""
