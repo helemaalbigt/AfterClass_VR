@@ -29,8 +29,6 @@
         </a-entity>
         <a-entity obj-model="obj: #avatar01-obj; mtl: #avatar01-mtl" scale = "0.1 0.1 0.1" position= "2 4 2"></a-entity>
         */
-var tps = [];
-var i;
 
 var isPresenter = true;
 var wantsToTalk = false;
@@ -54,7 +52,7 @@ var playerPosition;
 start();
 
 function start() {
-    GatherPoints();
+    
 	//iAmTalk.setAttribute('visible', true);
 	//iAmQuestion.setAttribute('visible', true);
 	//comradeQuestion.setAttribute('visible', true);
@@ -125,8 +123,3 @@ function StandUp() {
     }
 }
 
-function GatherPoints () {
-    for (i = 0; i <= 9; i++) {
-        tps[i] = document.querySelector("#tp0" + i.toString());
-    }
-}
