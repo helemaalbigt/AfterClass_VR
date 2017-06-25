@@ -30,12 +30,6 @@
         <a-entity obj-model="obj: #avatar01-obj; mtl: #avatar01-mtl" scale = "0.1 0.1 0.1" position= "2 4 2"></a-entity>
         */
 
-//var qP = document.getElementById("player").childNodes[0];
-//var aP = document.getElementById("player").childNodes[0];
-
-
-var tps = [];
-var i;
 
 var isPresenter = true;
 var wantsToTalk = false;
@@ -62,10 +56,7 @@ var speakingPopUp = document.getElementById("speakingPopUp");
 start();
 
 function start() {
-    //qP.setAttribute('visible', false);
-    //aP.setAttribute('visible', false);
-    //console.log("question popup is " + qP.tagName);
-    //console.log("question popup is " + aP.tagName);
+
 	//iAmTalk.setAttribute('visible', true);
 	//iAmQuestion.setAttribute('visible', true);
 	//comradeQuestion.setAttribute('visible', true);
@@ -137,8 +128,3 @@ function StandUp() {
     }
 }
 
-function GatherPoints () {
-    for (i = 0; i <= 9; i++) {
-        tps[i] = document.querySelector("#tp0" + i.toString());
-    }
-}

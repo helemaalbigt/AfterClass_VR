@@ -10,6 +10,11 @@ var isPresenter = false;
 var askedPermission = false;
 var hasPermission = false;
 
+var player = document.querySelector('#player');
+var playerPosition;
+var tps = [];
+var i;
+
 //var askPermission = document.querySelector('#askPermission');
 //var revokePermission = document.querySelector('#revokePermission');
 //var questionPopup = document.getElementById("player").getElementById("questionPopup");
@@ -36,7 +41,7 @@ Game.update = function () {
     if (NAF.connection.isConnected()) {
         //clearInterval(Game._intervalId);
 
-        console.log("connected " + connectedUserId);
+        //console.log("connected " + connectedUserId);
         NAF.connection.broadcastDataGuaranteed("ping", "");
         NAF.connection.subscribeToDataChannel("ping", TestPing);
         NAF.connection.subscribeToDataChannel("pong", TestPong);
@@ -67,7 +72,8 @@ function TestPong() {
 
 function Start() {
     //console.log("start");
-
+    UpdatePosition();
+    GatherPoints();
     ToggleMic(false);
     startRan = true;
     NAF.connection.broadcastDataGuaranteed("pingConnectedUsers", "");
@@ -83,6 +89,7 @@ function IncreaseIndex(message, channel, data) {
         connectedUsers.push(data.uid);
         if (data.time < timeConnected) {
             userIndex++;
+            UpdatePosition();
         }
     }
     console.log(userIndex);
@@ -115,6 +122,14 @@ function UpdateMic() {
         ToggleMic(true);
     } else {
         ToggleMic(false);
+    }
+}
+
+function UpdatePosition() {
+    if (userIndex < tps.length) {
+        playerPosition = player.getAttribute('position');
+        console.log(playerPosition);
+        player.setAttribute('position', tps[userIndex].getAttribute('position'));
     }
 }
 
@@ -168,6 +183,12 @@ function RevokeRightToSpeak() {
     console.log("has no permission");
     hasPermission = false;
     askedPermission = true;
+}
+
+function GatherPoints() {
+    for (i = 0; i <= 9; i++) {
+        tps[i] = document.querySelector("#tp0" + i.toString());
+    }
 }
 
 /*****
