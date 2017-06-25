@@ -29,6 +29,11 @@
         </a-entity>
         <a-entity obj-model="obj: #avatar01-obj; mtl: #avatar01-mtl" scale = "0.1 0.1 0.1" position= "2 4 2"></a-entity>
         */
+
+//var qP = document.getElementById("player").childNodes[0];
+//var aP = document.getElementById("player").childNodes[0];
+
+
 var tps = [];
 var i;
 
@@ -40,6 +45,9 @@ var player = document.querySelector('#player');
 var heightShift = document.querySelector('#heightShift');
 
 var playerPosition;
+
+var questionPopup = document.getElementById("questionPopup");
+var speakingPopUp = document.getElementById("speakingPopUp");
 
 //var iAmTalk = document.querySelector('#iAmTalk');
 //var iAmQuestion = document.querySelector('#iAmQuestion');
@@ -54,7 +62,10 @@ var playerPosition;
 start();
 
 function start() {
-    GatherPoints();
+    //qP.setAttribute('visible', false);
+    //aP.setAttribute('visible', false);
+    //console.log("question popup is " + qP.tagName);
+    //console.log("question popup is " + aP.tagName);
 	//iAmTalk.setAttribute('visible', true);
 	//iAmQuestion.setAttribute('visible', true);
 	//comradeQuestion.setAttribute('visible', true);
@@ -116,6 +127,7 @@ function StandUp() {
         stoodUp = true;
         playerPosition = player.getAttribute('position');
         player.setAttribute('position', {x: playerPosition.x, y: 1.7, z: playerPosition.z});
+        speakingPopup.setAttribute('visible', false);
         ClickedOnOther();
     } else {
         stoodUp = false;

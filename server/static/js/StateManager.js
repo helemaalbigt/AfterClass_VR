@@ -133,6 +133,7 @@ function ClickedOnOther() {
         console.log("clicked on other as student");
         //questionPopup.setAttribute('visible', true);
         NAF.connection.broadcastDataGuaranteed("askPermission", "");
+        //change color for the person asking for permission yellow
         askedPermission = true;
     }
 }
@@ -148,6 +149,7 @@ function CheckIfCanSpeak() {
     if (askedPermission) {
         if (!hasPermission) {
             console.log("has talking permission");
+            //change color for the person granted permission to green
             //speakingPopUp.setAttribute('visible', true);
             //questionPopup.setAttribute('visible', false);
             hasPermission = true;
@@ -155,6 +157,7 @@ function CheckIfCanSpeak() {
             console.log("has no permission");
             //speakingPopUp.setAttribute('visible', false);
             //questionPopup.setAttribute('visible', false);
+            //change color for the person back to blue
             hasPermission = false;
             askedPermission = true;
         }
