@@ -43,3 +43,4 @@ function changeColor () {
     cursor.setAttribute('material', 'color: yellow; shader: flat');
     cursor.setAttribute('scale', '1.5 1.5 1.5');
 }
+

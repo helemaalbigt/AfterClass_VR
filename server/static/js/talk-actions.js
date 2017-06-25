@@ -33,6 +33,7 @@ var isPresenter = true;
 var wantsToTalk = false;
 
 var player = document.querySelector('#player');
+var heightShift = document.querySelector('#heightShift');
 
 var iAmTalk = document.querySelector('#iAmTalk');
 var iAmQuestion = document.querySelector('#iAmQuestion');
@@ -99,4 +100,12 @@ function start() {
 function AskToTalk () {
 	//send message to Presenter you clicked on and let them know you would like to speak, sets their comradeQuestion visibility to true and:
 	wantsToTalk = true;
+}
+
+function StandUp () {
+    player.emit('toVert');
+}
+
+function SitDown () {
+    player.emit('toFlat');
 }
