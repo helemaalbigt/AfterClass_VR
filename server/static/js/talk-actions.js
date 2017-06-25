@@ -27,6 +27,7 @@
                         scale="0.2 0.1 0.1">       
                         </a-sphere>
         </a-entity>
+        <a-entity obj-model="obj: #avatar01-obj; mtl: #avatar01-mtl" scale = "0.1 0.1 0.1" position= "2 4 2"></a-entity>
         */
 
 var isPresenter = true;
@@ -35,9 +36,9 @@ var wantsToTalk = false;
 var player = document.querySelector('#player');
 var heightShift = document.querySelector('#heightShift');
 
-var iAmTalk = document.querySelector('#iAmTalk');
-var iAmQuestion = document.querySelector('#iAmQuestion');
-var comradeQuestion = document.querySelector('#comradeQuestion');
+//var iAmTalk = document.querySelector('#iAmTalk');
+//var iAmQuestion = document.querySelector('#iAmQuestion');
+//var comradeQuestion = document.querySelector('#comradeQuestion');
 
 //hoping these get covered in the index
 //iAmTalk.addEventListener('mouseenter', changeColor);
@@ -48,9 +49,9 @@ var comradeQuestion = document.querySelector('#comradeQuestion');
 start();
 
 function start() {
-	iAmTalk.setAttribute('visible', true);
-	iAmQuestion.setAttribute('visible', true);
-	comradeQuestion.setAttribute('visible', true);
+	//iAmTalk.setAttribute('visible', true);
+	//iAmQuestion.setAttribute('visible', true);
+	//comradeQuestion.setAttribute('visible', true);
 	
 	//if your ID is a certain thing at the beginning
 	//if (true) {
@@ -61,8 +62,8 @@ function start() {
 
 	if (isPresenter) {
 		wantsToTalk = false;
-		iAmTalk.setAttribute('visible', true);
-		iAmQuestion.setAttribute('visible', false);
+		//iAmTalk.setAttribute('visible', true);
+		//iAmQuestion.setAttribute('visible', false);
 		//comradeQuestion.setAttribute('visible', false);
 	}
 	/*
@@ -73,8 +74,8 @@ function start() {
 	} */
 	if (!wantsToTalk && !isPresenter) {
 		isPresenter = false;
-		iAmTalk.setAttribute('visible', false);
-		iAmQuestion.setAttribute('visible', false);
+		//iAmTalk.setAttribute('visible', false);
+		//iAmQuestion.setAttribute('visible', false);
 	}
 	
 	document.body.onkeyup = function (e) {
