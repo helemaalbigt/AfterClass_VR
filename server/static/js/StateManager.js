@@ -10,6 +10,11 @@ var isPresenter = false;
 var askedPermission = false;
 var hasPermission = false;
 
+//var askPermission = document.querySelector('#askPermission');
+//var revokePermission = document.querySelector('#revokePermission');
+//var questionPopup = document.getElementById("player").getElementById("questionPopup");
+//var speakingPopUp = document.getElementById("player").getElementById("speakingPopUp");
+
 Game.fps = 10;
 
 //set up user id and the time the user was created
@@ -31,7 +36,7 @@ Game.update = function () {
     if (NAF.connection.isConnected()) {
         //clearInterval(Game._intervalId);
 
-        // console.log("connected " + connectedUserId);
+        console.log("connected " + connectedUserId);
         NAF.connection.broadcastDataGuaranteed("ping", "");
         NAF.connection.subscribeToDataChannel("ping", TestPing);
         NAF.connection.subscribeToDataChannel("pong", TestPong);
@@ -41,6 +46,7 @@ Game.update = function () {
 
         NAF.connection.subscribeToDataChannel("grantPermission", CheckIfCanSpeak);
         NAF.connection.subscribeToDataChannel("revokePermission", CheckIfCanSpeak);
+        NAF.connection.subscribeToDataChannel("askPermission", ShowRequest);
 
         if (connectionValid && !startRan) {
             Start();
@@ -112,6 +118,12 @@ function UpdateMic() {
     }
 }
 
+function ShowRequest() {
+    if (isPresenter) {
+       // questionPopup.setAttribute('visible', true);
+    }
+}
+
 //call when someone clicked on another avatar to ask for permissions or grant them
 function ClickedOnOther() {
     if (isPresenter) {
@@ -119,6 +131,7 @@ function ClickedOnOther() {
         NAF.connection.broadcastDataGuaranteed("grantPermission", "");
     } else {
         console.log("clicked on other as student");
+        //questionPopup.setAttribute('visible', true);
         NAF.connection.broadcastDataGuaranteed("askPermission", "");
         askedPermission = true;
     }
@@ -135,9 +148,13 @@ function CheckIfCanSpeak() {
     if (askedPermission) {
         if (!hasPermission) {
             console.log("has talking permission");
+            //speakingPopUp.setAttribute('visible', true);
+            //questionPopup.setAttribute('visible', false);
             hasPermission = true;
         } else {
             console.log("has no permission");
+            //speakingPopUp.setAttribute('visible', false);
+            //questionPopup.setAttribute('visible', false);
             hasPermission = false;
             askedPermission = true;
         }

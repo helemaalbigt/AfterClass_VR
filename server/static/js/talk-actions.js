@@ -32,6 +32,7 @@
 
 var isPresenter = true;
 var wantsToTalk = false;
+var stoodUp = false;
 
 var player = document.querySelector('#player');
 var heightShift = document.querySelector('#heightShift');
@@ -100,13 +101,18 @@ function start() {
 
 function AskToTalk () {
 	//send message to Presenter you clicked on and let them know you would like to speak, sets their comradeQuestion visibility to true and:
-	wantsToTalk = true;
+    //wantsToTalk = true;
+    ClickedOnOther();
 }
 
-function StandUp () {
-    player.emit('toVert');
-}
-
-function SitDown () {
-    player.emit('toFlat');
+function StandUp() {
+    if (!stoodUp) {
+        stoodUp = true;
+        player.emit('toVert');
+        ClickedOnOther();
+    } else {
+        stoodUp = false;
+        player.emit('toFlat');
+        ClickedOnOther();
+    }
 }
