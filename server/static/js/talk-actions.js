@@ -29,6 +29,8 @@
         </a-entity>
         <a-entity obj-model="obj: #avatar01-obj; mtl: #avatar01-mtl" scale = "0.1 0.1 0.1" position= "2 4 2"></a-entity>
         */
+var tps = [];
+var i;
 
 var isPresenter = true;
 var wantsToTalk = false;
@@ -36,6 +38,8 @@ var stoodUp = false;
 
 var player = document.querySelector('#player');
 var heightShift = document.querySelector('#heightShift');
+
+var playerPosition;
 
 //var iAmTalk = document.querySelector('#iAmTalk');
 //var iAmQuestion = document.querySelector('#iAmQuestion');
@@ -50,6 +54,7 @@ var heightShift = document.querySelector('#heightShift');
 start();
 
 function start() {
+    GatherPoints();
 	//iAmTalk.setAttribute('visible', true);
 	//iAmQuestion.setAttribute('visible', true);
 	//comradeQuestion.setAttribute('visible', true);
@@ -91,10 +96,11 @@ function start() {
 		//Tab
         if (e.keyCode == 9) {
             //backPano();
+            SitDown();
         }
 		//Spacebar
         if (e.keyCode == 32) {
-            //nextPano();
+            StandUp();
         }
     }
 }
@@ -108,11 +114,19 @@ function AskToTalk () {
 function StandUp() {
     if (!stoodUp) {
         stoodUp = true;
-        player.emit('toVert');
+        playerPosition = player.getAttribute('position');
+        player.setAttribute('position', {x: playerPosition.x, y: 1.7, z: playerPosition.z});
         ClickedOnOther();
     } else {
         stoodUp = false;
-        player.emit('toFlat');
+        playerPosition = player.getAttribute('position');
+        player.setAttribute('position', {x: playerPosition.x, y: 1.4, z: playerPosition.z});
         ClickedOnOther();
+    }
+}
+
+function GatherPoints () {
+    for (i = 0; i <= 9; i++) {
+        tps[i] = document.querySelector("#tp0" + i.toString());
     }
 }
