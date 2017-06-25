@@ -36,6 +36,8 @@ var wantsToTalk = false;
 var player = document.querySelector('#player');
 var heightShift = document.querySelector('#heightShift');
 
+var playerPosition;
+
 //var iAmTalk = document.querySelector('#iAmTalk');
 //var iAmQuestion = document.querySelector('#iAmQuestion');
 //var comradeQuestion = document.querySelector('#comradeQuestion');
@@ -90,10 +92,11 @@ function start() {
 		//Tab
         if (e.keyCode == 9) {
             //backPano();
+            SitDown();
         }
 		//Spacebar
         if (e.keyCode == 32) {
-            //nextPano();
+            StandUp();
         }
     }
 }
@@ -104,9 +107,16 @@ function AskToTalk () {
 }
 
 function StandUp () {
-    player.emit('toVert');
+    //console.log(player.getAttribute('position'));
+    //player.emit('toVert');
+    playerPosition = player.getAttribute('position');
+    player.setAttribute('position', {x: playerPosition.x, y: 1.7, z: playerPosition.z});
+    //console.log(playerX + " " + playerZ);
+    //console.log(player.getAttribute('position'));
 }
 
 function SitDown () {
-    player.emit('toFlat');
+    //player.emit('toFlat');
+    playerPosition = player.getAttribute('position');
+    player.setAttribute('position', {x: playerPosition.x, y: 1.4, z: playerPosition.z});
 }

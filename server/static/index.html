@@ -26,13 +26,6 @@
           <a-asset-item id="tree01-obj" src="./assets/tree01.obj"></a-asset-item>
           <a-asset-item id="tree01-mtl" src="./assets/tree01.mtl"></a-asset-item>
 
-          <a-asset-item id="avatar01-obj" src="./assets/avatar01.obj"></a-asset-item>
-          <a-asset-item id="avatar01-mtl" src="./assets/avatar01.mtl"></a-asset-item>
-
-          
-
-
-          
 
           <script id="avatar-template" type="text/html">
 
@@ -117,16 +110,15 @@
         </a-entity>
         
         <a-entity id=heightShift position= "0 0 0">
-          <a-entity id="player" networked="template:#avatar-template;showLocalTemplate:false;" camera position="0 1.3 0" wasd-controls look-controls> 
-              <a-obj-model src="avatar01.obj" mtl="avatar01.mtl"></a-obj-model>
+          <a-entity id="player" networked="template:#avatar-template;showLocalTemplate:false;" camera position="0 1.4 0" wasd-controls look-controls> 
               <a-cursor id="cursor" fuse="true" animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150" animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1000" animation__leave="property: scale; startEvents: mouseleave; to: 1 1 1" event-set__1="_event: mouseenter; color: #eab11c" event-set__2="_event: mouseleave; color: grey" raycaster="objects: .link" position="" rotation="" scale="" visible="" material="" cursor="" geometry="" color="grey"></a-cursor>
-              <a-animation begin="toVert" attribute="position" dur="1500" fill="forwards" easing="linear" to="0 1.7 0"></a-animation>
-              <a-animation begin="toFlat" attribute="position" dur="1500" fill="forwards" easing="linear" to="0 1.3 0"></a-animation>
           </a-entity>
+          <a-animation begin="toVert" attribute="position" dur="1500" fill="forwards" easing="linear" to="0 1.7 0"></a-animation>
+          <a-animation begin="toFlat" attribute="position" dur="1500" fill="forwards" easing="linear" to="0 1.4 0"></a-animation>
         </a-entity>
 
         <a-entity light="color:#2b1302;groundColor:#fc5543;decay:0.8; intensity:1.55;type:ambient" position="0 5.39 0" id="LightPoint">
-          <a-animation attribute="intensity" dur="2500" fill="forwards" from=".04" to="2" direction="alternate" repeat="pingpong" loop="pingpong"></a-animation>
+          <a-animation attribute="light.intensity" dur="1200" fill="forwards" from="2.5" to="3" direction="alternate" repeat="pingpong" loop="indefinite"></a-animation>
         </a-entity>
 
         <a-entity light="color:e4f878;groundColor:#4f53f0;decay:0.02;intensity:1.35;type:point" position="0 4 0" id="LightPoint">
@@ -136,7 +128,7 @@
                to="1 3.2 1"
                direction="alternate"
                repeat="pingpong"
-               loop="pingpong"></a-animation>
+               loop="indefinite"></a-animation>
         </a-entity>
 
 
