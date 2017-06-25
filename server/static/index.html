@@ -1,0 +1,194 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="easyrtc/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <a-scene networked-scene="app: classroomVR; room: room1; debug: true; webrtc: true; webrtcAudio: true">
+
+        <a-assets>
+          <img id="floor" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+          <img id="sky" src="./img/BG_dark.jpg" crossorigin="anonymous" />
+          <script id="avatar-template" type="text/html">
+            <a-entity class="avatar">
+              <a-sphere class="head"
+                color="#5985ff"
+                scale="0.45 0.5 0.4"
+              ></a-sphere>
+              <a-entity class="face"
+                position="0 0.05 0"
+              >
+                <a-sphere class="eye"
+                  color="#efefef"
+                  position="0.16 0.1 -0.35"
+                  scale="0.12 0.12 0.12"
+                >
+                  <a-sphere class="pupil"
+                    color="#000"
+                    position="0 0 -1"
+                    scale="0.2 0.2 0.2"
+                  ></a-sphere>
+                </a-sphere>
+                <a-sphere class="eye"
+                  color="#efefef"
+                  position="-0.16 0.1 -0.35"
+                  scale="0.12 0.12 0.12"
+                >
+                  <a-sphere class="pupil"
+                    color="#000"
+                    position="0 0 -1"
+                    scale="0.2 0.2 0.2"
+                  ></a-sphere>
+                </a-sphere>
+              </a-entity>
+            </a-entity>
+          </script>
+        </a-assets>
+
+        <a-entity id="modelAnchor">
+        </a-entity>
+
+        <a-entity id="player" networked="template:#avatar-template;showLocalTemplate:false;" camera position="0 1.3 0" wasd-controls look-controls></a-entity>
+        <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+        
+    </a-scene>
+    
+    <script>
+        //<a-entity obj-model="obj: url(./files/models/lowerlimb.obj);" position="0 0 0"></a-entity>
+        /*
+        window.onkeyup = function (e) {
+            var key = e.keyCode ? e.keyCode : e.which;
+
+            if (key == 38) {
+                console.log("up");
+                var itm = document.getElementById("myList2")
+                var itm = document.getElementById("myList2")
+                
+            } else if (key == 40) {
+                console.log("turn mic off");
+            }
+        }
+        */
+    </script>
+    <script>
+        /*
+        var Game = {};
+        var connectionValid = false;
+        var startRan = false;
+        var connectedUserId;
+        var timeConnected;
+        var userIndex = 0;
+        var connectedUsers = new Array();
+
+        var isPresenter = false;
+        var askedQuestion = false;
+
+        Game.fps = 10;
+
+        //set up user id and the time the user was created
+        window.onload = function () {
+            connectedUserId = RandomString(8);
+            timeConnected = new Date().getTime();
+            console.log("new user " + connectedUserId + ", created at " + timeConnected);
+        };
+
+        Game.run = function () {
+            Game.update();
+        };
+
+        // Start the game loop
+        Game._intervalId = setInterval(Game.run, 1000 / Game.fps);
+
+        //game loop
+        Game.update = function () {
+            if (NAF.connection.isConnected()) {
+                //clearInterval(Game._intervalId);
+
+                // console.log("connected " + connectedUserId);
+                NAF.connection.broadcastDataGuaranteed("ping", "");
+                NAF.connection.subscribeToDataChannel("ping", TestPing);
+                NAF.connection.subscribeToDataChannel("pong", TestPong);
+
+                NAF.connection.subscribeToDataChannel("pingConnectedUsers", ReplyToPing);
+                NAF.connection.subscribeToDataChannel("pingReply", IncreaseIndex);
+
+                if (connectionValid && !startRan) {
+                    Start();
+                }
+
+                UpdatePermissions();
+            }
+        };
+
+        function TestPing(){
+            NAF.connection.broadcastDataGuaranteed("pong", "");
+        }
+        function TestPong(){
+            connectionValid = true;
+        }
+
+
+        function Start() {
+            //console.log("start");
+
+            ToggleMic(false);
+            startRan = true;
+            NAF.connection.broadcastDataGuaranteed("pingConnectedUsers", "");
+        }
+
+        function ReplyToPing(e) {
+            var userInfo = { uid: connectedUserId, time: timeConnected };
+            NAF.connection.broadcastDataGuaranteed("pingReply", userInfo);
+        }
+
+        function IncreaseIndex(message, channel, data) {
+            if (connectedUsers.indexOf(data.uid) == -1) {
+                connectedUsers.push(data.uid);
+                if (data.time < timeConnected) {
+                    userIndex++;
+                }
+            }            
+            console.log(userIndex);
+        }
+
+        function ToggleMic(value) {
+            //console.log("turn mic to "+ value);
+            easyrtc.enableMicrophone(value);
+        }
+
+        function RandomString(length) {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (var i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+            return text;
+        }
+
+        function UpdatePermissions() {
+            if (userIndex > 0) {
+                ToggleMic(false);
+            } else {
+                ToggleMic(true);
+            }
+        }
+
+        window.onkeyup = function (e) {
+            var key = e.keyCode ? e.keyCode : e.which;
+
+            if (key == 38) {
+                //console.log("turn mic on");
+                ToggleMic(true);
+                //NAF.connection.broadcastDataGuaranteed(dataType, data);
+            } else if (key == 40) {
+                //console.log("turn mic off");
+                ToggleMic(false);
+            }
+        }
+        */
+    </script>
+  </body>
+</html>
