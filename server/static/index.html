@@ -16,7 +16,7 @@
         <a-assets>
           <img id="floor" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
           <img id="sky" src="./img/BG_dark.jpg" crossorigin="anonymous">
-          <img id="floor_n" crossorigin="anonymous" src="./assets/ground_normals.jpg" crossorigin="anonymous">
+          <img id="floor_n" crossorigin="anonymous" src="./assets/ground.jpg" crossorigin="anonymous">
           <img id="q" src="./assets/q.png">
             <img id="s" src="./assets/s.png">
 
@@ -31,6 +31,9 @@
 
           <a-asset-item id="avatar01-obj" src="./assets/avatar01.obj"></a-asset-item>
           <a-asset-item id="avatar01-mtl" src="./assets/avatar01.mtl"></a-asset-item>
+
+            <a-asset-item id="podium-obj" src="./assets/podium1.obj"></a-asset-item>
+          <a-asset-item id="podium-mtl" src="./assets/podium1.mtl"></a-asset-item>
           
           <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
           
@@ -150,21 +153,13 @@
         </a-assets>
 
 
-        <a-assets>
-        </a-assets>
-
-        <a-plane id="Ground" class="ground" rotation="-90 0 0" scale="20 20 20" material ="src: #floor_n; color: green; roughness:1 normalMap: #floor_n " 
-        normal-map = "#floor_n" normal-scale="6 3" repeat="3.5 4";></a-plane>
 
         <a-entity obj-model="obj: #fire-obj; mtl: #fire-mtl" scale = "0.05 0.05 0.05"  material="shader: flat;"></a-entity>
-        <a-entity obj-model="obj: #stump-obj; mtl: #stump-mtl" scale = "0.1 0.1 0.1"></a-entity>
-        <a-entity obj-model="obj: #tree01-obj; mtl: #tree01-mtl" scale = "0.1 0.1 0.1" position= "-4.4 0 -8.7"></a-entity>
-        <a-entity obj-model="obj: #tree01-obj; mtl:#tree01-mtl" scale="0.1 0.1 0.1" position="6.57 0 5.2" rotation="0 40 0" visible="true" material=""></a-entity>
         
         <a-sphere id="node-fade" position="2 0.25 0" radius=".25" color="#4CC3D9" travel-node></a-sphere>
 
         <a-entity id="tpPoints" position="0 0 0">
-          <a-entity id="tp00" template="src: #tp-template" position="-2.6 1.4 2"></a-entity>
+          <a-entity id="tp00" template="src: #tp-template" position="-3.5 1.5 -1.3"></a-entity>
           <a-entity id="tp01" template="src: #tp-template" position="-2.7 1.4 -.1"></a-entity>
           <a-entity id="tp02" template="src: #tp-template" position="-1.8 1.4 -1.9"></a-entity>
           <a-entity id="tp03" template="src: #tp-template" position="0 1.4 -2.2"></a-entity>
@@ -172,8 +167,6 @@
           <a-entity id="tp05" template="src: #tp-template" position="2.7 1.4 .2"></a-entity>
           <a-entity id="tp06" template="src: #tp-template" position="2.9 1.4 2.1"></a-entity>
           <a-entity id="tp07" template="src: #tp-template" position="2.1 1.4 3.1"></a-entity>
-          <a-entity id="tp08" template="src: #tp-template" position=".4 1.4 3.4"></a-entity>
-          <a-entity id="tp09" template="src: #tp-template" position="-1.5 1.4 3.2"></a-entity>
         </a-entity>
 
         <a-entity id="modelAnchor">
@@ -187,8 +180,30 @@
           <a-animation begin="toFlat" attribute="position" dur="1500" fill="forwards" easing="linear" to="0 1.4 0"></a-animation>
         </a-entity>
 
-        <a-entity light="color:#2b1302;groundColor:#fc5543;decay:0.8; intensity:1.55;type:ambient" position="0 5.39 0" id="LightAmb">
-          <a-animation attribute="light.intensity" dur="1200" fill="forwards" from="2.5" to="3" direction="alternate" repeat="pingpong" loop="indefinite"></a-animation>
+        <!--stumps-->
+        <a-entity obj-model="obj: #stump-obj; mtl: #stump-mtl" position=".5 .1 5.2" rotation="0 40 0" scale = "0.1 0.1 0.1" ></a-entity >
+         <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.1 0.1 0.1" position="0 0 -1.25" material="" id="stump-2"></a-entity>
+        <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.1 0.1 0.1" position="-2.67 0 0.09" rotation="4.14 10 0" visible="true" material="" id="stump-3"></a-entity>
+        <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.11 0.08 0.11" position="3.48 -0.18 4.45" rotation="0.5 90 5.02" material=""></a-entity>
+        <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.1 0.1 0.1" position="5.49 0 -0.17" rotation="4 80 0" visible="true" material="" id="stump-4"></a-entity>
+        <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.1 0.1 0.1" position="2.56 0 3.86" rotation="-6.18 -40 0" visible="true" material="" id="stump-5"></a-entity>
+        <a-entity obj-model="obj:#stump-obj;mtl:#stump-mtl" scale="0.1 0.1 0.1" position="0.7 0 5.04" rotation="0 -50 0" visible="true" material="" id="stump-6"></a-entity>
+
+        <!-- podium-->
+        <a-entity obj-model="obj:#podium-obj;mtl:#podium-mtl" scale="0.15 0.15 0.19" position="-4.81 -0.1 0.65" material="" id="podium-2"></a-entity>
+
+        <!-- trees-->
+        <a-entity obj-model="obj: #tree01-obj; mtl: #tree01-mtl" scale = "0.1 0.1 0.1" position= "-4 0 -4"></a-entity>
+        <a-entity obj-model="obj: #tree01-obj; mtl:#tree01-mtl" scale="0.1 0.1 0.1" position="6.57 0 5.2" rotation="0 40 0" visible="true" material=""></a-entity>
+        <a-entity obj-model="obj:#tree01-obj;mtl:#tree01-mtl" scale="0.34 0.28 0.46" position="-2.71 -1.27 6.45" rotation="0 40 0" visible="true" material="" id="tree-1></a-entity>
+        <a-entity obj-model="obj:#tree01-obj;mtl:#tree01-mtl" scale="0.4 0.1 0.34" position="-7.28 -0.21 1.42" rotation="0 40 0" visible="true" material="" id="tree-2></a-entity>
+        <a-entity obj-model="obj:#tree01-obj;mtl:#tree01-mtl" scale=".5 0.1 0.1" position="-3.19 0 5.2" rotation="0 40 0" visible="true" material="" id="tree-2></a-entity>
+        <a-entity obj-model="obj:#tree01-obj;mtl:#tree01-mtl" scale="0.5 0.1 0.1" position="-3.19 5 10" rotation="0 40 0" visible="true" material="" id="tree-3"></a-entity>
+        <a-entity obj-model="obj:#tree01-obj;mtl:#tree01-mtl" scale="0.2 0.1 0.2" position="3.3 0 -4" rotation="0 18.36 0" visible="true" material="" id="tree-4" obj:#tree01-obj;mtl:#tree01-mtl"=""></a-entity>
+
+        <!-- lights-->
+        <a-entity light="color:#f3f8ba;groundColor:#39d7f2;decay:0.5;intensity:2.21;type:point;distance:0" position="0.63 3.5 0.63" id="LightPoint">
+          <a-animation attribute="position" dur="2500" fill="forwards" to="1 3.2 1" direction="alternate" repeat="pingpong" loop="indefinite"></a-animation>
         </a-entity>
 
         <a-entity light="color:e4f878;groundColor:#4f53f0;decay:0.02;intensity:1.35;type:point" position="0 4 0" id="LightPoint">
@@ -201,6 +216,13 @@
                loop="indefinite"></a-animation>
         </a-entity>
 
+        <a-entity light="color:e4f878;groundColor:#4f53f0;decay:0.02;intensity:1.35;type:ambient" position="0 4 0" id="LightAmbient" rotation="0 0 0" scale="1 1 1" visible="true">
+          <a-animation attribute="position" dur="2500" fill="forwards" to="1 3.2 1" direction="alternate" repeat="pingpong" loop="indefinite"></a-animation>
+        </a-entity>
+
+        <!--ground-->
+        <a-plane id="Ground" rotation="-90 0 0" scale="200 200 200" material ="src: #floor_n; roughness:1 normalMap: " 
+        normal-map = "#floor_n" normal-scale="6 3" repeat="0";></a-plane>
 
         <a-sky src="#sky" rotation="0 -90 0"></a-sky>
         
